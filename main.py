@@ -1,5 +1,6 @@
 from random import randint
-
+import os
+monster_index = ["Warrior","Ghost","Villager","Spider"]
 monster_list = []
 
 player = {
@@ -13,13 +14,19 @@ player = {
 
 }
 
+
 prompt = input("Prompt:")
 
 
+def PromptEvent(prompt):
+    prompt = input("Prompt:")
+    return prompt
+
 def create_monster(level):
+
     new_npc = {
         
-        "name": f"Monster #{level}",
+        "name": monster_index[randint(0,len(monster_index)-1)],
         "level": level,
         "dmg": 5 * level,
         "hp": 100 * level,
@@ -60,15 +67,29 @@ def attack_plr(npc):
 
 
 def startbattle():
-    attack_npc(selected_npc)
-    attack_plr(selected_npc)
-    show_fight_info()
+    print (selected_npc["name"])
+    print("Move:\nDefend\nAttack\nRun")
 
 
 
 
-gen_monster(5)
-selected_npc = monster_list[0]
+
+
+
+amount = randint(1,5)
+
+
+if prompt == "walk":
+    gen_monster(3)
+    print(monster_list)
+    selected_npc = monster_list[0]
+    print(f'You encountered a {selected_npc["name"]}! fight or run?')
+    choice = input("Fight: F\n Run: R\n")
+    if choice == "R":
+        print("you ran")
+    elif choice == "F":
+        startbattle()
 
 if prompt == "start":
     startbattle()
+    
